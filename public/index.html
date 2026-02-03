@@ -163,7 +163,62 @@
           >
         </div>
       </header>
-      
+      <div
+        class="mb-10 animate-fade-in"
+        style="animation-delay: 0.1s; animation-fill-mode: both"
+      >
+        <div
+          class="bg-gradient-to-br from-accent/10 to-blue-500/10 border-2 border-accent/30 rounded-2xl p-6 backdrop-blur-sm"
+        >
+          <div class="flex items-start gap-4">
+            <div
+              class="flex-shrink-0 w-12 h-12 bg-accent/20 rounded-lg flex items-center justify-center"
+            >
+              <svg
+                class="w-6 h-6 text-accent"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                />
+              </svg>
+            </div>
+
+            <div class="flex-1 min-w-0">
+              <h3
+                class="text-xl font-bold text-white mb-2 flex items-center gap-2"
+              >
+                Need it into ur Winget ??
+                <span class="text-text-dim text-xs font-normal"
+                  >(Run this first so!)</span
+                >
+              </h3>
+              <div
+                class="bg-bg-dark/80 border border-accent/50 rounded-lg p-4 font-mono text-sm relative group"
+              >
+                <code
+                  class="text-accent block overflow-x-auto"
+                  id="add-source-cmd"
+                >
+                  winget source add --name Infotify --arg
+                  https://winget-packages.vercel.app/ --type "Microsoft.Rest"
+                </code>
+                <button
+                  onclick="copyToClipboard('add-source-cmd', this)"
+                  class="absolute top-2 right-2 bg-accent/20 hover:bg-accent text-accent hover:text-bg-dark px-3 py-1 rounded text-xs font-bold transition-all opacity-0 group-hover:opacity-100"
+                >
+                  Copy
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10 animate-fade-in"
         style="animation-delay: 0.2s; animation-fill-mode: both"

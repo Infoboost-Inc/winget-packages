@@ -16,7 +16,6 @@ export default function handler(req, res) {
   
   let results = manifests;
 
-  // Filter based on query
   if (Query && Query.KeyWord) {
     const keyword = Query.KeyWord.toLowerCase();
     results = results.filter(manifest => 
