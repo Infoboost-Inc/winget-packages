@@ -1,0 +1,23 @@
+[
+  {
+    "PackageIdentifier": "Infoboost.HpSupportAssistant",
+    "PackageVersion": "0.8.3",
+    "PackageLocale": "en-US",
+    "Publisher": "Infoboost",
+    "PackageName": "HpSupportAssistant",
+    "License": "GPL-3.0",
+    "ShortDescription": "HpSupportAssistant is assistant software for HP devices.",
+    "Installers": [
+      {
+        "Architecture": "x64",
+        "InstallerType": "exe",
+        "InstallerUrl": "https://ftp.hp.com/pub/softpaq/sp168501-169000/sp168523.exe",
+        "InstallerSha256": "FE387ADB776AFB1403C9AE1CF41CB0785F16C185C24D1B227BDAB442E825E23C",
+        "InstallerSwitches": {
+          "Silent": "/S",
+          "SilentWithProgress": "/S"
+        }
+      }
+    ]
+  }
+]

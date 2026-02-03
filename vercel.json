@@ -1,0 +1,43 @@
+{
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/api/web"
+    },
+    {
+      "source": "/information",
+      "destination": "/api/information"
+    },
+    {
+      "source": "/manifestSearch",
+      "destination": "/api/manifestSearch"
+    },
+    {
+      "source": "/packageManifests/:packageIdentifier",
+      "destination": "/api/packageManifests/:packageIdentifier"
+    },
+    {
+      "source": "/packages",
+      "destination": "/api/packages"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Access-Control-Allow-Methods",
+          "value": "GET, POST, OPTIONS"
+        },
+        {
+          "key": "Access-Control-Allow-Headers",
+          "value": "Content-Type"
+        }
+      ]
+    }
+  ]
+}

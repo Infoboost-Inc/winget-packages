@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winget Packages - Infotify</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'bg-dark': '#0a0e1a',
+              'bg-card': '#12182b',
+              accent: '#0ea5e9',
+              'accent-dim': '#0ea5e933',
+              text: '#e4e8f0',
+              'text-dim': '#8891a8',
+              border: '#1e2740',
+            },
+            fontFamily: {
+              mono: ['JetBrains Mono', 'monospace'],
+              display: ['Syne', 'sans-serif'],
+            },
+            animation: {
+              'grid-move': 'gridMove 20s linear infinite',
+              float: 'float 15s ease-in-out infinite',
+              'slide-down': 'slideDown 0.8s ease-out',
+              'fade-in': 'fadeIn 1s ease-out',
+              spin: 'spin 1s linear infinite',
+              'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            },
+            keyframes: {
+              gridMove: {
+                '0%': { transform: 'translate(0, 0)' },
+                '100%': { transform: 'translate(50px, 50px)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translate(0, 0) scale(1)' },
+                '50%': { transform: 'translate(-20%, 10%) scale(1.1)' },
+              },
+              slideDown: {
+                from: { opacity: '0', transform: 'translateY(-30px)' },
+                to: { opacity: '1', transform: 'translateY(0)' },
+              },
+              fadeIn: {
+                from: { opacity: '0' },
+                to: { opacity: '1' },
+              },
+              pulseGlow: {
+                '0%, 100%': { boxShadow: '0 0 20px rgba(14, 165, 233, 0.3)' },
+                '50%': { boxShadow: '0 0 40px rgba(14, 165, 233, 0.6)' },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background:
+          linear-gradient(90deg, #1e2740 1px, transparent 1px),
+          linear-gradient(#1e2740 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.3;
+        z-index: 0;
+        animation: gridMove 20s linear infinite;
+      }
+
+      @keyframes gridMove {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(50px, 50px);
+        }
+      }
+
+      body::after {
+        content: '';
+        position: fixed;
+        top: -20%;
+        right: -10%;
+        width: 60%;
+        height: 60%;
+        background: radial-gradient(circle, #0ea5e933 0%, transparent 70%);
+        border-radius: 50%;
+        filter: blur(100px);
+        z-index: 0;
+        animation: float 15s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translate(0, 0) scale(1);
+        }
+        50% {
+          transform: translate(-20%, 10%) scale(1.1);
+        }
+      }
+
+      .ascii-art {
+        line-height: 1;
+        font-size: 0.6rem;
+        color: #0ea5e9;
+        text-shadow: 0 0 10px #0ea5e933;
+      }
+
+      @media (max-width: 768px) {
+        .ascii-art {
+          font-size: 0.35rem;
+        }
+      }
+
+      @keyframes copySuccess {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .copy-success {
+        animation: copySuccess 0.3s ease;
+      }
+    </style>
+  </head>
+  <body class="bg-bg-dark text-text min-h-screen overflow-x-hidden">
+    <div class="max-w-7xl mx-auto px-5 py-10 relative z-10">
+      <header class="mb-16 animate-slide-down">
+        <h1
+          class="font-display text-6xl md:text-7xl font-extrabold bg-gradient-to-r from-white via-blue-200 to-accent bg-clip-text text-transparent mb-3 tracking-tight"
+        >
+          Winget Packages
+        </h1>
+        <div class="flex items-center gap-4 text-text-dim text-lg flex-wrap">
+          <pre class="ascii-art mb-4 whitespace-pre">
+        ____      ____      __  _ ____     
+       /  _/___  / __/___  / /_(_) __/_  __
+ for   / // __ \/ /_/ __ \/ __/ / /_/ / / /
+     _/ // / / / __/ /_/ / /_/ / __/ /_/ / 
+    /___/_/ /_/_/  \____/\__/_/_/  \__, /  
+                                  /____/   </pre
+          >
+        </div>
+      </header>
+      
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10 animate-fade-in"
+        style="animation-delay: 0.2s; animation-fill-mode: both"
+      >
+        <div
+          class="stat-card bg-bg-card border border-border rounded-xl p-6 relative overflow-hidden transition-all duration-300 hover:border-accent group"
+        >
+          <div class="text-5xl font-bold text-accent mb-2" id="total-packages">
+            0
+          </div>
+          <div class="text-text-dim text-sm">Total Packages</div>
+        </div>
+        <div
+          class="stat-card bg-bg-card border border-border rounded-xl p-6 relative overflow-hidden transition-all duration-300 hover:border-accent group"
+        >
+          <div
+            class="text-5xl font-bold text-accent mb-2"
+            id="total-publishers"
+          >
+            0
+          </div>
+          <div class="text-text-dim text-sm">Publishers</div>
+        </div>
+        <div
+          class="stat-card bg-bg-card border border-border rounded-xl p-6 relative overflow-hidden transition-all duration-300 hover:border-accent group"
+        >
+          <div
+            class="text-5xl font-bold text-accent mb-2"
+            id="total-installers"
+          >
+            0
+          </div>
+          <div class="text-text-dim text-sm">Installers</div>
+        </div>
+      </div>
+      <div
+        id="packages-container"
+        class="animate-fade-in"
+        style="animation-delay: 0.4s; animation-fill-mode: both"
+      >
+        <div class="text-center py-24">
+          <div
+            class="w-12 h-12 border-4 border-border border-t-accent rounded-full animate-spin mx-auto mb-5"
+          ></div>
+          <div class="text-text-dim text-xl">Loading packages...</div>
+        </div>
+      </div>
+      <footer
+        class="mt-20 pt-8 border-t border-border text-center text-text-dim"
+      >
+        <p class="mb-2">
+          Made with <3 by
+          <a
+            href="https://github.com/6c0-o"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-accent hover:underline font-bold transition-colors"
+            >6c0-o</a
+          >
+        </p>
+        <p class="text-sm">Powered by WinGet • Infoboost</p>
+      </footer>
+    </div>
+
+    <script>
+      function copyToClipboard(elementId, button) {
+        const element = document.getElementById(elementId);
+        const text = element.textContent.trim();
+
+        navigator.clipboard
+          .writeText(text)
+          .then(() => {
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.classList.add('copy-success');
+
+            setTimeout(() => {
+              button.textContent = originalText;
+              button.classList.remove('copy-success');
+            }, 2000);
+          })
+          .catch((err) => {
+            console.error('Failed to copy:', err);
+          });
+      }
+      function groupPackagesByIdentifier(packages) {
+        const grouped = {};
+        packages.forEach((pkg) => {
+          if (!grouped[pkg.PackageIdentifier]) {
+            grouped[pkg.PackageIdentifier] = [];
+          }
+          grouped[pkg.PackageIdentifier].push(pkg);
+        });
+
+        Object.keys(grouped).forEach((id) => {
+          grouped[id].sort((a, b) => {
+            const versionA = a.PackageVersion.split('.').map(Number);
+            const versionB = b.PackageVersion.split('.').map(Number);
+            for (
+              let i = 0;
+              i < Math.max(versionA.length, versionB.length);
+              i++
+            ) {
+              const numA = versionA[i] || 0;
+              const numB = versionB[i] || 0;
+              if (numA !== numB) return numB - numA;
+            }
+            return 0;
+          });
+        });
+
+        return grouped;
+      }
+      async function loadPackages() {
+        try {
+          const response = await fetch('/packages');
+          const packages = await response.json();
+
+          if (packages.length === 0) {
+            document.getElementById('packages-container').innerHTML = `
+              <div class="text-center py-24">
+                <h2 class="text-2xl font-bold mb-2">No packages available</h2>
+                <p class="text-text-dim">Add packages to data/manifests.json to get started</p>
+              </div>
+            `;
+            return;
+          }
+
+          const groupedPackages = groupPackagesByIdentifier(packages);
+          const packageIds = Object.keys(groupedPackages);
+          document.getElementById('total-packages').textContent =
+            packageIds.length;
+          const publishers = new Set(packages.map((p) => p.Publisher));
+          document.getElementById('total-publishers').textContent =
+            publishers.size;
+          const installers = packages.reduce(
+            (sum, p) => sum + p.Installers.length,
+            0,
+          );
+          document.getElementById('total-installers').textContent = installers;
+
+          const container = document.getElementById('packages-container');
+          container.innerHTML = '<div class="space-y-5"></div>';
+          const grid = container.querySelector('div');
+
+          packageIds.forEach((packageId, index) => {
+            const versions = groupedPackages[packageId];
+            const latestPkg = versions[0];
+
+            const card = document.createElement('div');
+            card.className =
+              'package-card bg-bg-card border border-border rounded-2xl p-8 relative overflow-hidden transition-all duration-400 hover:border-accent cursor-pointer group';
+            card.style.animationDelay = `${index * 0.1}s`;
+
+            const installer = latestPkg.Installers[0];
+            const versionSelectorId = `version-select-${packageId.replace(/\./g, '-')}`;
+
+            card.innerHTML = `
+              <div class="flex justify-between items-start mb-5 flex-wrap gap-4">
+                <div>
+                  <div class="font-display text-3xl font-bold text-text mb-2">${latestPkg.PackageName}</div>
+                  <div class="text-accent text-base font-mono">${latestPkg.PackageIdentifier}</div>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                  ${
+                    versions.length > 1
+                      ? `
+                    <div class="relative">
+                      <label class="text-text-dim text-xs mb-1 block">Version</label>
+                      <div class="relative">
+                        <button 
+                          id="${versionSelectorId}" 
+                          class="version-selector bg-gradient-to-br from-bg-dark to-bg-card border-2 border-accent/50 text-accent px-4 py-2.5 rounded-xl text-sm font-bold cursor-pointer hover:border-accent transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 whitespace-nowrap flex items-center gap-2"
+                          type="button"
+                        >
+                          <span class="version-text">v${latestPkg.PackageVersion}</span>
+                          <svg class="w-4 h-4 ml-auto transition-transform arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                          </svg>
+                        </button>
+                        <div 
+                          id="${versionSelectorId}-dropdown" 
+                          class="version-dropdown absolute top-full left-0 mt-2 w-full bg-gradient-to-br from-bg-dark to-bg-card border-2 border-accent/50 rounded-xl shadow-xl shadow-accent/20 overflow-hidden z-50 hidden"
+                        >
+                          ${versions
+                            .map(
+                              (v) => `
+                            <div 
+                              class="version-option px-4 py-2.5 text-sm font-bold text-accent hover:bg-accent/20 cursor-pointer transition-colors border-b border-accent/20 last:border-0"
+                              data-pkg='${JSON.stringify(v).replace(/'/g, '&apos;')}'
+                              data-version="${v.PackageVersion}"
+                            >
+                              v${v.PackageVersion}
+                            </div>
+                          `,
+                            )
+                            .join('')}
+                        </div>
+                      </div>
+                    </div>
+                  `
+                      : `
+                    <div>
+                      <div class="text-text-dim text-xs mb-1">Version</div>
+                      <div class="version-selector bg-gradient-to-br from-bg-dark to-bg-card border-2 border-accent/50 text-accent px-4 py-2.5 rounded-xl text-sm font-bold cursor-pointer hover:border-accent transition-all focus:outline-none focus:ring-2 focus:ring-accent/50 whitespace-nowrap flex items-center gap-2">
+                        v${latestPkg.PackageVersion}
+                      </div>
+                    </div>
+                  `
+                  }
+                </div>
+              </div>
+
+              ${latestPkg.ShortDescription ? `<div class="text-text-dim leading-relaxed mb-5">${latestPkg.ShortDescription}</div>` : ''}
+
+              <div class="flex flex-wrap gap-4 mb-5">
+                <div class="flex items-center gap-2 text-text-dim text-sm">
+                  <span class="text-accent font-bold">Publisher:</span>
+                  <span id="${versionSelectorId}-publisher">${latestPkg.Publisher}</span>
+                </div>
+                ${
+                  latestPkg.License
+                    ? `
+                  <div class="flex items-center gap-2 text-text-dim text-sm">
+                    <span class="text-accent font-bold">License:</span>
+                    <span id="${versionSelectorId}-license">${latestPkg.License}</span>
+                  </div>
+                `
+                    : ''
+                }
+              </div>
+
+              <div class="bg-bg-dark border border-border rounded-lg p-4 mb-4">
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-sm">
+                  <div class="flex flex-col gap-1">
+                    <span class="text-text-dim">Architecture</span>
+                    <span class="text-text font-bold" id="${versionSelectorId}-arch">${installer.Architecture}</span>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <span class="text-text-dim">Type</span>
+                    <span class="text-text font-bold" id="${versionSelectorId}-type">${installer.InstallerType}</span>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <span class="text-text-dim">SHA256</span>
+                    <span class="text-text font-bold font-mono text-xs" id="${versionSelectorId}-sha">${installer.InstallerSha256.substring(0, 8)}...</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-gradient-to-br from-bg-dark to-bg-card border-2 border-accent/50 rounded-lg p-4 relative group/cmd hover:border-accent transition-all">
+                <div class="text-accent text-xs uppercase tracking-wider mb-2 font-bold">Install Command</div>
+                <div class="text-text text-base font-mono select-all break-all" id="${versionSelectorId}-cmd">winget install ${latestPkg.PackageIdentifier} --version ${latestPkg.PackageVersion}</div>
+                
+                <button
+                  onclick="copyToClipboard('${versionSelectorId}-cmd', this)"
+                  class="absolute top-2 right-2 bg-accent/20 hover:bg-accent text-accent hover:text-bg-dark px-3 py-1 rounded-lg text-xs font-bold transition-all opacity-0 group-hover/cmd:opacity-100"
+                >
+                  Copy
+                </button>
+              </div>
+            `;
+
+            grid.appendChild(card);
+
+            // Version selector event handler - NOUVELLE VERSION
+            if (versions.length > 1) {
+              const btn = document.getElementById(versionSelectorId);
+              const dropdown = document.getElementById(
+                `${versionSelectorId}-dropdown`,
+              );
+              const versionText = btn.querySelector('.version-text');
+              const arrow = btn.querySelector('.arrow-icon');
+              const options = dropdown.querySelectorAll('.version-option');
+
+              // Toggle dropdown
+              btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                dropdown.classList.toggle('hidden');
+                arrow.style.transform = dropdown.classList.contains('hidden')
+                  ? ''
+                  : 'rotate(180deg)';
+              });
+
+              // Handle option selection
+              options.forEach((option) => {
+                option.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  const selectedPkg = JSON.parse(option.dataset.pkg);
+                  const selectedInstaller = selectedPkg.Installers[0];
+
+                  // Update version display
+                  versionText.textContent = 'v' + option.dataset.version;
+                  dropdown.classList.add('hidden');
+                  arrow.style.transform = '';
+
+                  // Update all package info
+                  document.getElementById(
+                    `${versionSelectorId}-publisher`,
+                  ).textContent = selectedPkg.Publisher;
+                  if (selectedPkg.License) {
+                    document.getElementById(
+                      `${versionSelectorId}-license`,
+                    ).textContent = selectedPkg.License;
+                  }
+                  document.getElementById(
+                    `${versionSelectorId}-arch`,
+                  ).textContent = selectedInstaller.Architecture;
+                  document.getElementById(
+                    `${versionSelectorId}-type`,
+                  ).textContent = selectedInstaller.InstallerType;
+                  document.getElementById(
+                    `${versionSelectorId}-sha`,
+                  ).textContent =
+                    selectedInstaller.InstallerSha256.substring(0, 8) + '...';
+                  document.getElementById(
+                    `${versionSelectorId}-cmd`,
+                  ).textContent =
+                    `winget install ${selectedPkg.PackageIdentifier} --version ${selectedPkg.PackageVersion}`;
+                });
+              });
+
+              // Close dropdown when clicking outside
+              document.addEventListener('click', (e) => {
+                if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+                  dropdown.classList.add('hidden');
+                  arrow.style.transform = '';
+                }
+              });
+            }
+          });
+        } catch (error) {
+          console.error('Error loading packages:', error);
+          document.getElementById('packages-container').innerHTML = `
+            <div class="text-center py-24">
+              <div class="text-6xl mb-5 opacity-30">⚠️</div>
+              <h2 class="text-2xl font-bold mb-2">Error loading packages</h2>
+              <p class="text-text-dim">${error.message}</p>
+            </div>
+          `;
+        }
+      }
+
+      loadPackages();
+    </script>
+  </body>
+</html>
