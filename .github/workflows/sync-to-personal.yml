@@ -17,9 +17,9 @@ jobs:
           
       - name: Push to personal repo
         env:
-          PERSONAL_TOKEN: ${{ secrets.PERSONAL_REPO_TOKEN }}
+          GH_TOKEN: ${{ secrets.PERSONAL_REPO_TOKEN }}
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git remote add personal https://${PERSONAL_TOKEN}@github.com/6c0-o/winget-packages
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git remote add personal https://oauth2:${GH_TOKEN}@github.com/6c0-o/winget-packages
           git push personal main:main --force
