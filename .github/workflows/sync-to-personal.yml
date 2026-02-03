@@ -20,4 +20,4 @@ jobs:
           PERSONAL_TOKEN: ${{ secrets.PERSONAL_REPO_TOKEN }}
         run: |
           git remote add personal https://x-access-token:${PERSONAL_TOKEN}@github.com/6c0-o/winget-packages.git
-          git push personal main:main --forcew
+          git push personal main:main --force
