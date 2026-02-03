@@ -19,5 +19,26 @@
         }
       }
     ]
+  },
+  {
+    "PackageIdentifier": "Infoboost.ButterLauncher",
+    "PackageVersion": "1.1.0",
+    "PackageLocale": "en-US",
+    "Publisher": "Infoboost",
+    "PackageName": "Butter Launcher",
+    "License": "GPL-3.0",
+    "ShortDescription": "Hytale Launcher: Play without limits. Features No-Premium multiplayer support, a robust multi-version manager, and access to the latest version of Hytale.",
+    "Installers": [
+      {
+        "Architecture": "x64",
+        "InstallerType": "exe",
+        "InstallerUrl": "https://github.com/vZylev/Butter-Launcher/releases/download/v1.1.0/butter-launcher-setup.exe",
+        "InstallerSha256": "00a0350b27eacdf482e0adce78c84e7bead24c0202ad1bacf5d7e60886f9a4a4",
+        "InstallerSwitches": {
+          "Silent": "/S",
+          "SilentWithProgress": "/S"
+        }
+      }
+    ]
   }
 ]
