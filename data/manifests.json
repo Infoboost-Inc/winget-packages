@@ -11,8 +11,8 @@
       {
         "Architecture": "x64",
         "InstallerType": "exe",
-        "InstallerUrl": "https://ftp.hp.com/pub/softpaq/sp168501-169000/sp168523.exe",
-        "InstallerSha256": "FE387ADB776AFB1403C9AE1CF41CB0785F16C185C24D1B227BDAB442E825E23C",
+        "InstallerUrl": "https://github.com/Infoboost-Inc/winget-packages/releases/download/1/sp168523.exe",
+        "InstallerSha256": "F79165741A30D71C657F7340BFAEABDB5EB0D1A1630A07707607A387B29E7AE5",
         "InstallerSwitches": {
           "Silent": "/S",
           "SilentWithProgress": "/S"
@@ -21,19 +21,40 @@
     ]
   },
   {
-    "PackageIdentifier": "Infoboost.ButterLauncher",
+    "PackageIdentifier": "Infoboost.GoogleChrome",
     "PackageVersion": "1.1.0",
     "PackageLocale": "en-US",
     "Publisher": "Infoboost",
-    "PackageName": "Butter Launcher",
+    "PackageName": "Google Chrome",
     "License": "GPL-3.0",
-    "ShortDescription": "Hytale Launcher: Play without limits. Features No-Premium multiplayer support, a robust multi-version manager, and access to the latest version of Hytale.",
+    "ShortDescription": "Google Chrome is a fast, secure, and free web browser.",
     "Installers": [
       {
         "Architecture": "x64",
         "InstallerType": "exe",
-        "InstallerUrl": "https://github.com/vZylev/Butter-Launcher/releases/download/v1.1.0/butter-launcher-setup.exe",
-        "InstallerSha256": "00a0350b27eacdf482e0adce78c84e7bead24c0202ad1bacf5d7e60886f9a4a4",
+        "InstallerUrl": "https://github.com/Infoboost-Inc/winget-packages/releases/download/1/ChromeSetup.exe",
+        "InstallerSha256": "B3B211F87F0FC6BC02990F0B13F582D6B16CE7C2BF1A1BDAE539C40982C7DCE9",
+        "InstallerSwitches": {
+          "Silent": "/S",
+          "SilentWithProgress": "/S"
+        }
+      }
+    ]
+  },
+  {
+    "PackageIdentifier": "Infoboost.CommandUpdate",
+    "PackageVersion": "5.6.0",
+    "PackageLocale": "en-US",
+    "Publisher": "Infoboost",
+    "PackageName": "Dell Command Update",
+    "License": "GPL-3.0",
+    "ShortDescription": "Dell Command Update is a tool that helps you keep your Dell device up to date.",
+    "Installers": [
+      {
+        "Architecture": "x64",
+        "InstallerType": "exe",
+        "InstallerUrl": "https://github.com/Infoboost-Inc/winget-packages/releases/download/1/Dell-Command-Update-Application_5CR1Y_WIN64_5.6.0_A00.EXE",
+        "InstallerSha256": "546678D8517977287FE37768DB70335CB41D9A9D2E2B373DED4A80BBD3075E16",
         "InstallerSwitches": {
           "Silent": "/S",
           "SilentWithProgress": "/S"
