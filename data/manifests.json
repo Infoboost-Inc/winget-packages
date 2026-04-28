@@ -61,5 +61,26 @@
         }
       }
     ]
+  },
+  {
+    "PackageIdentifier": "Infoboost.AnyDesk",
+    "PackageVersion": "1.0.0",
+    "PackageLocale": "en-US",
+    "Publisher": "Infoboost",
+    "PackageName": "AnyDesk",
+    "License": "GPL-3.0",
+    "ShortDescription": "AnyDesk is a remote desktop application for secure and fast remote access.",
+    "Installers": [
+      {
+        "Architecture": "x64",
+        "InstallerType": "exe",
+        "InstallerUrl": "https://github.com/Infoboost-Inc/winget-packages/releases/download/1/AnyDesk.exe",
+        "InstallerSha256": "5bf2945ceaaac681fad1b9b999c6620ce8393f919179ce6ca0fef5b411e984e5",
+        "InstallerSwitches": {
+          "Silent": "/S",
+          "SilentWithProgress": "/S"
+        }
+      }
+    ]
   }
 ]
